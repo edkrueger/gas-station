@@ -5,6 +5,9 @@ verify_ssl = true
 
 [dev-packages]
 ipykernel = "*"
+black = "*"
+pre-commit = "*"
+pylint = "*"
 
 [packages]
 scipy = "*"
@@ -16,3 +19,6 @@ simpy = "*"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
