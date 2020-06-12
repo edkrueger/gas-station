@@ -10,9 +10,8 @@ import numpy as np
 from scipy.stats import expon
 from scipy.stats import norm
 
-from process_classes import Car
-from resource_classes import GasStation
-from utils import validate_params
+from .process_classes import Car
+from .resource_classes import GasStation
 
 
 class Simulator:
@@ -25,8 +24,6 @@ class Simulator:
     """
 
     def __init__(self, params):
-
-        validate_params(params)
 
         self.params = params
         self.env = simpy.Environment()
