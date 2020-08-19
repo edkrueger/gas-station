@@ -16,6 +16,7 @@ pandas = "*"
 matplotlib = "*"
 jupyterlab = "*"
 simpy = "*"
+pywin32 = "*"
 
 [requires]
 python_version = "3.7"
