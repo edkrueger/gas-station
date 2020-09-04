@@ -9,29 +9,39 @@ Say you expect customers to behave a certain way on your platform or sensors to 
 
 Simulations are used in a wide array of industries for any number of purposes. Ports might use simulations to plan for ship capacity. Real Estate developers might simulate expected capital expenditure (CapEx) when deciding where to build their next project. The choices are limitless. However, incorporating subject expertise into any model complex enough to fit data is impossible. This is a major machine learning problem. With increased flexibility we lose interpretablility if fed overly specific and fine-tuned information from a simulation.
 
-So, what do we do to avoid this? The most obvious solution is to use the data we _do_ have to inform the behaviors of our simulation! 
+So, what do we do to avoid this? The most obvious solution is to use the data we _do_ have to inform the behaviors of each moving part in our simulation!
 
 ### Why a Gas Station?
-Say we own a gas station. What sort of questions should a burgeoning gas station tycoon be asking themselves?
-First, how many pumps should our station have? How many pumps is _too_ many pumps? How many gallons on average does each vehicle take and at what rate should our pumps flow to maximize our throughput?
+Say you own a gas station. What sort of questions should a burgeoning gas station tycoon be asking themselves?
+First, how many pumps should your station have? How many pumps is _too_ many pumps? How many gallons on average does each vehicle take? At what rate should your pumps flow to maximize throughput?
 
-After deliberating
+After deliberating over the questions we want want answered, it is important to identify the key "players" that should be modeled in order to run the simulation. With the question above, there are two: gas pumps and vehicles.
+
 - why distributions - exp, normal, etc.
 - look at decision, don't assume decision will effect behavior -- by nature of problem some things never show up in dataset
-    - twice as many pumps, half as much traffic on each. not so, could be a line waiting
+    - twice as many pumps => half as much traffic on each. not so, could be a line waiting
 
 ### Simpy Overview
-##### Environment .env
+What is SimPy? The documentation defines it as "SimPy is a process-based discrete-event simulation framework based on standard Python." What does that mean? I will break some terms down for you below:
+1. Process-based: the simulation is centered around active "__Process__" elements which consume "__Resources__." 
+2. Discrete-event: the actions of the Processes are not continuous i.e. they have a defined start and stop.
+3. Framework: like any web-design framework, all the building blocks are there but the programmer needs to implement the specific use-case.
+Below I will go into more detail about the above, and introduce some other essential aspects of the framework, principally the SimPy Environment.
+##### Environment
+All Processes live in a SimPy Environment objects. Processes interact with their Environment through _events_. When events are created, Processes are _suspended_ until the event is triggered by another element in the Environment (as defined by the developer). After an event is triggered, the Process continues until its next event is yielded or it is finished. 
+The Environment object is super efficient. Simpy implements queues on each Resource to quickly to insert and pop Processes as they are created and events as they are triggered.
+
 - flexible enough to gather info but also use env.
-- super efficient - uses queue on each resource very quick to insert, __heap__
-##### Resources
+- super efficient - __heap__
+
+##### Resource
 1. Request/Release
 2. Timeout - leaving if wait too long
-######## Gas Station
+###### Gas Station
 1. Number of Pumps
 2. Number Gallons Sold
 3. Minutes Utilized
-##### Processes
+##### Process
 ###### Car
 1. Gas Required - normally distributed, important but weakest assumption *could be pert/triangle to do later*
     - 
